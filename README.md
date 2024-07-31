@@ -26,7 +26,23 @@ layout:
 
 ## 使用
 
-[在线使用示例](https://stackblitz.com/edit/node-bqs8oq?file=README.md)
+参考 [在线使用示例](https://stackblitz.com/edit/node-bqs8oq?file=README.md)
+
+## 查看主题模板
+
+在 hexo server 后添加 --showlayout 参数, 会打印出当前主题注册的模板名称
+
+```cmd
+hexo server --showlayout
+```
+
+![demo](./assets/demo.png)
+
+在 devtools 可以看到添加注释信息, 通过注释标签查看 对应模块 生成的 HTML
+
+\<\!--模块名 START --> 生成 HTML \<\!--模块名 END -->
+
+![demo2](./assets/demo2.png)
 
 # Lisense
 

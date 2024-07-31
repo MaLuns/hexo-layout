@@ -43,6 +43,9 @@ class Layout {
     }
   }
 
+  /**
+   * init the view map
+   */
   initViewMap() {
     const custom = this.config.custom;
     for (const key in custom) {
@@ -58,6 +61,9 @@ class Layout {
     return Boolean(this.watcher);
   }
 
+  /**
+   * unwatch view folder
+   */
   unwatch() {
     if (!this.isWatching()) return;
 
