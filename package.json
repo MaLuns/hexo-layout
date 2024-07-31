@@ -1,0 +1,23 @@
+{
+  "name": "hexo-layout",
+  "version": "1.0.0",
+  "main": "index.js",
+  "description": "",
+  "keywords": [
+    "hexo-plugin",
+    "hexo",
+    "hexo-layout",
+    "hexo-theme"
+  ],
+  "author": "Maluns <admin@imalun.com>",
+  "bugs": {
+    "url": "https://github.com/MaLuns/hexo-layout/issues"
+  },
+  "homepage": "https://github.com/MaLuns/hexo-layout#readme",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MaLuns/hexo-layout.git"
+  },
+  "scripts": {}
+}

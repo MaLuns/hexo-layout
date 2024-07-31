@@ -1,0 +1,18 @@
+# custom
+.DS_Store
+node_modules/
+
+# lock
+yarn.lock
+package-lock.json
+pnpm-global
+
+dist/
+
+# logs
+*.log
+
+.cache
+.temp
+.vscode/settings.json
+.eslintcache
