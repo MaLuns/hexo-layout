@@ -9,7 +9,9 @@ const escapeBackslash = (path) => {
 
 class Layout {
   watcher = null;
-  viewMap = new Map();
+  viewNameMap = new Map();
+  oriViews = new Map();
+
   config = {
     path: "layout",
     prefix: "_hexo_layout_",
@@ -51,8 +53,8 @@ class Layout {
     for (const key in custom) {
       if (Object.hasOwnProperty.call(custom, key)) {
         const val = custom[key];
-        this.viewMap.set(key, val);
-        this.viewMap.set(val, key);
+        this.viewNameMap.set(key, val);
+        this.viewNameMap.set(val, key);
       }
     }
   }
@@ -127,10 +129,10 @@ class Layout {
    */
   setView(fullpath) {
     const path = fullpath.replace(this.layout_dir, "");
-    const prefixPath = this.config.prefix + path;
+    const name = path.substring(0, path.length - extname(path).length).replace(/^\//, "");
 
-    const oriViewName = this.viewMap.get(path);
-    const viewName = oriViewName ? `_/${oriViewName}` : prefixPath;
+    const viewName = this.config.prefix + path;
+    const oriViewName = this.viewNameMap.get(name);
 
     const viewText = readFileSync(fullpath, { encoding: "utf8" });
 
@@ -142,8 +144,15 @@ class Layout {
 
     //
     if (oriViewName) {
-      const oriView = this.setOriView(oriViewName, view);
-      oriView && this.setOriView(viewName, oriView);
+      const oriViewNow = this.setOriView(oriViewName, view);
+      const oriViewCache = this.oriViews.get(oriViewName);
+      
+      const oriView = oriViewCache || oriViewNow;
+
+      if (oriView) {
+        this.oriViews.set(oriViewName, oriView);
+        this.setOriView(viewName, oriView);
+      }
     }
   }
 
@@ -153,16 +162,17 @@ class Layout {
    */
   removeView(fullpath) {
     const path = fullpath.replace(this.layout_dir, "");
-    const prefixPath = this.config.prefix + path;
-    const oriViewName = this.viewMap.get(path);
-    const viewName = oriViewName ? `_/${oriViewName}` : prefixPath;
+    const name = path.substring(0, path.length - extname(path).length).replace(/^\//, "");
 
-    if (oriViewName) {
-      const oriView = this.setOriView(viewName, null);
-      oriView && this.setOriView(oriViewName, oriView);
-    }
+    const viewName = this.config.prefix + path;
+    const oriViewName = this.viewNameMap.get(name);
 
     this.hexo.theme.removeView(viewName);
+
+    if (oriViewName) {
+      const oriView = this.oriViews.get(oriViewName);
+      oriView && this.setOriView(oriViewName, oriView);
+    }
   }
 
   /**
