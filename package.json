@@ -19,5 +19,10 @@
     "type": "git",
     "url": "git+https://github.com/MaLuns/hexo-layout.git"
   },
-  "scripts": {}
+  "scripts": {},
+  "files": [
+    "libs",
+    "index.js",
+    "README.md"
+  ]
 }
